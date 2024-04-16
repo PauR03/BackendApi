@@ -59,3 +59,19 @@ def borrarProducto(request):
         return JsonResponse({
             "status": False
         })
+    
+@api_view(['POST'])
+def editarProducto(request):
+    try:
+        producto = Producto.objects.get(id=request.data.get('id'))
+        producto.nombre = request.data.get('nombre')
+        producto.descripcion = request.data.get('descripcion')
+        producto.precio = request.data.get('precio')
+        producto.save()
+        return JsonResponse({
+            "status": True
+        })
+    except:
+        return JsonResponse({
+            "status": False
+        })

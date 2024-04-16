@@ -7,6 +7,6 @@ urlpatterns = [
     path("api/mostrarLista/", api.mostrarLista),
     path("api/detallesProductos/", api.detallesProductos),
     path("api/añadirProducto/", api.añadirProducto),
-    path("api/borrarProducto", api.borrarProducto),
-    # path("api/editarProducto", api.editarProducto),
+    path("api/borrarProducto/", api.borrarProducto),
+    path("api/editarProducto/", api.editarProducto),
 ]
