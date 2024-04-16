@@ -32,3 +32,16 @@ def añadirProducto(request):
         return JsonResponse({
             "status": False
         })
+
+@api_view(['POST'])
+def borrarProducto(request):
+    try:
+        producto = Producto.objects.get(id=request.data.get('id'))
+        producto.delete()
+        return JsonResponse({
+            "status": True
+        })
+    except:
+        return JsonResponse({
+            "status": False
+        })
