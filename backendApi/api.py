@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from .models import *
 
+from rest_framework.decorators import api_view
 # from rest_framework.decorators import api_view
 
 def hello(request):
@@ -16,16 +17,18 @@ def mostrarLista(request):
         "data": list(productos)
     })
 
+@api_view(['POST'])
 def añadirProducto(request):
-
-    # producto = Producto.objects.create(
-    #     nombre = request.POST.get('nombre'),
-    #     descripcion = request.POST.get('descripcion'),
-    #     precio = request.POST.get('precio')
-    # )
-    print("\n"*20)
-    print(request.POST.get('nombre'))
-    return JsonResponse({
-        "status": "OK",
-        "producto": "request"
-    })
+    try:
+        producto = Producto.objects.create(
+            nombre = request.data.get('nombre'),
+            descripcion = request.data.get('descripcion'),
+            precio = request.data.get('precio')
+        )
+        return JsonResponse({
+            "status": True
+        })
+    except:
+        return JsonResponse({
+            "status": False
+        })
