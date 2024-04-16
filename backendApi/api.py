@@ -18,6 +18,20 @@ def mostrarLista(request):
     })
 
 @api_view(['POST'])
+def detallesProductos(request):
+    print(request.data)
+    producto = Producto.objects.filter(id=request.data.get('id_producto')).values('nombre', 'descripcion', 'precio')
+    if producto:
+        return JsonResponse({
+        "data": list(producto)
+    })
+    else:
+        return JsonResponse({
+            "status": "Error",
+            "message": "Producto not found"
+        })
+
+@api_view(['POST'])
 def añadirProducto(request):
     try:
         producto = Producto.objects.create(
